@@ -7,7 +7,7 @@ $( document ).ready(function() {
 
 //Creates text field when 'other' is selected as a job
 $("#title").change(function(){
-   let selectedText = $("select option:selected").val();
+   var selectedText = $("select option:selected").val();
    if (selectedText === 'other') {
         $("#other-title").show();
     } else {
@@ -18,14 +18,14 @@ $("#title").change(function(){
 //On selection of the design, sets appropriate color based on the design selected
 $('#design').on('change', function(){
     if( $(this).val() == 'js puns' ){
-        $('.js').hide();
-        $('.js_puns').show();
+        $('.js').prop('disabled', true);
+        $('.js_puns').prop('disabled', false);
     } else if( $(this).val() == 'heart js' ){
-        $('.js_puns').hide();
-        $('.js').show();
+    	$('.js_puns').prop('disabled', true);
+    	$('.js').prop('disabled', false);
     } else {
-    	$('.js_puns').show();
-        $('.js').show();
+    	$('.js').prop('disabled', false);
+    	$('.js_puns').prop('disabled', false);
     }
 });
 
@@ -39,7 +39,7 @@ var wedAft = 0;
 var main = 0;
 var total = 0; 
 
-
+//On change of activity select boxes, looks for duplicate times and creates total $ amount
 $activities.change(function() {
   var activityClass = $(this).closest('input').attr("class");
   var isChecked = this.checked;
