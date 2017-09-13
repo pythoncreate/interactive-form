@@ -29,30 +29,6 @@ $('#design').on('change', function(){
     }
 });
 
-var $activities = $('.activities > label');
-
-//Activities
-// var tuesMorn = 0
-// var tuesAft = 0
-// var total = 0
-// $activities.each(function(){
-// 	let activityClass = ($(this).attr("class"));
-// 	if (this.checked && activityClass === 'tues_morn'){
-// 			tuesMorn += 1;
-// 			total += 100;
-// 		} else if (this.checked && activityClass === 'tues_aft'){
-// 			tuesAft +=1;
-// 			total += 100;
-// 		} else if (this.checked && activityClass === 'wed_morn'){
-// 			total += 100;
-// 		} else if (this.checked && activityClass === 'wed_aft'){
-// 			total += 100;
-// 		} else if (this.checked && activityClass === 'main'){
-// 			total += 200;
-// 		}
-// 	})
-// 	console.log(total);
-
 //Activities
 var $activities = $('.activities input[type="checkbox"]');
 
@@ -63,36 +39,36 @@ var wedAft = 0;
 var main = 0;
 var total = 0; 
 
-function calculateTotal(actClass) {
-	var total = 0; 
-	if (actClass === 'main'){
-		total += 200;
-	} else {
-		total += 100;
-	}
-	return total;
-}
-
 
 $activities.change(function() {
   var activityClass = $(this).closest('input').attr("class");
   var isChecked = this.checked;
+  $activities.not(this).prop('disabled', false);
 
   if (activityClass === 'tues_morn') {
     tuesMorn = isChecked ? tuesMorn + 1 : tuesMorn - 1;
-    calculateTotal(activityClass);
-    console.log(total);
+    total = isChecked ? total + 100: total -100;
     if (tuesMorn > 1) {
+      $(this).prop('disabled', true);
       alert("You Signed Up For Too Many Morning Classes");
     }
   } else if (activityClass === 'tues_aft') {
     	tuesAft = isChecked ? tuesAft + 1 : tuesAft - 1;
-     	calculateTotal(activityClass);
-    	console.log(total);
+    	total = isChecked ? total + 100: total -100;
     	if (tuesAft > 1) {
-      	alert("You Signed Up For Too Many Afternoon Classe");
-  } else {
-  		calculateTotal(activityClass);
-  }
+    	$(this).prop('disabled', true);
+      	alert("You Signed Up For Too Many Afternoon Classes");
+      	}
+  } else if (activityClass === 'wed_morn'){
+        wedMorn = isChecked ? wedMorn + 1 : wedMorn - 1;
+    	total = isChecked ? total + 100: total -100;
+  } else if (activityClass === 'wed_aft'){
+        wedAft = isChecked ? wedAft + 1 : wedAft - 1;
+    	total = isChecked ? total + 100: total -100;
+  } else if (activityClass === 'main'){
+        main = isChecked ? main + 1 : main - 1;
+    	total = isChecked ? total + 200: total -200;
 }
+    document.getElementById('Totalcost').innerHTML = "$" + total;
 });
+
