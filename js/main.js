@@ -29,13 +29,70 @@ $('#design').on('change', function(){
     }
 });
 
-//Activities
-var $activities = $(".activities >*");
-var $checkedActivities = $activities.checked;
+var $activities = $('.activities > label');
 
-$.each($activities,function(index){
-  //part where the magic happens
-  if $(this).checked{}
-  console.log(index+' checkbox has value' +$(this).val());
+//Activities
+// var tuesMorn = 0
+// var tuesAft = 0
+// var total = 0
+// $activities.each(function(){
+// 	let activityClass = ($(this).attr("class"));
+// 	if (this.checked && activityClass === 'tues_morn'){
+// 			tuesMorn += 1;
+// 			total += 100;
+// 		} else if (this.checked && activityClass === 'tues_aft'){
+// 			tuesAft +=1;
+// 			total += 100;
+// 		} else if (this.checked && activityClass === 'wed_morn'){
+// 			total += 100;
+// 		} else if (this.checked && activityClass === 'wed_aft'){
+// 			total += 100;
+// 		} else if (this.checked && activityClass === 'main'){
+// 			total += 200;
+// 		}
+// 	})
+// 	console.log(total);
+
+//Activities
+var $activities = $('.activities input[type="checkbox"]');
+
+var tuesMorn = 0;
+var tuesAft = 0;
+var wedMorn = 0
+var wedAft = 0;
+var main = 0;
+var total = 0; 
+
+function calculateTotal(actClass) {
+	var total = 0; 
+	if (actClass === 'main'){
+		total += 200;
+	} else {
+		total += 100;
+	}
+	return total;
+}
+
+
+$activities.change(function() {
+  var activityClass = $(this).closest('input').attr("class");
+  var isChecked = this.checked;
+
+  if (activityClass === 'tues_morn') {
+    tuesMorn = isChecked ? tuesMorn + 1 : tuesMorn - 1;
+    calculateTotal(activityClass);
+    console.log(total);
+    if (tuesMorn > 1) {
+      alert("You Signed Up For Too Many Morning Classes");
+    }
+  } else if (activityClass === 'tues_aft') {
+    	tuesAft = isChecked ? tuesAft + 1 : tuesAft - 1;
+     	calculateTotal(activityClass);
+    	console.log(total);
+    	if (tuesAft > 1) {
+      	alert("You Signed Up For Too Many Afternoon Classe");
+  } else {
+  		calculateTotal(activityClass);
+  }
 }
 });

@@ -179,3 +179,11 @@ button:hover {
 		width: 49%;
 	}
 }
+
+.tues_morn {
+  background: orange;
+}
+
+.tues_aft {
+  background: lightblue;
+}
