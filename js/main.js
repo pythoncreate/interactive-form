@@ -72,3 +72,23 @@ $activities.change(function() {
     document.getElementById('Totalcost').innerHTML = "$" + total;
 });
 
+//Changes Payment Sections Based on User Payment Choice
+$('#bitcoin').hide();
+$('#paypal').hide();
+$("#payment option[value='credit card']").prop('selected', true);
+$('#payment').on('change', function(){
+    if( $(this).val() == 'credit card' ){
+      $('#bitcoin').hide();
+      $('#paypal').hide();
+      $('#credit-card').show();
+    } else if ( $(this).val()=='paypal' ){
+      $('#paypal').show();
+      $('#credit-card').hide();
+      $('#bitcoin').hide();
+    } else if ( $(this).val()=='bitcoin'){
+      $('#paypal').hide();
+      $('#credit-card').hide();
+      $('#bitcoin').show();
+    }
+
+});
