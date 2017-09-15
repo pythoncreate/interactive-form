@@ -103,6 +103,7 @@ function validateName(){
         $(".error_name").show();
         console.log('name cant be empty');
     } else {
+        $(".error_name").hide();
         error_name = false;
     }
     return error_name
@@ -118,6 +119,7 @@ function validateEmail(){
         $(".error_email").show();
         error_email = true;
     } else {
+        $(".error_email").hide();
         error_email = false;
     }
     return error_email
@@ -130,6 +132,7 @@ function validateActivities(){
         $(".error_activities").show();
     } else {
         error_activity = false;
+        $(".error_activities").hide();
     }
     return error_activity
 }
@@ -143,34 +146,37 @@ function validateCC(){
         $(".error_cc").show();
         errorCC = true;
     } else {
+        $(".error_cc").hide();
         errorCC = false;
     }
     return errorCC
 }
 
 function validateZip(){
-    var zip = $("#zip").val().length;
+    var zip = $("#zip").val();
     var errorZip = true;
     errorZip = intRegex.test(zip);
-    if ((!errorZip)||(zip!= 5)){
+    if ((!errorZip)||(zip.length!= 5)){
         $(".error_zip").show();
         errorZip = true;
         console.log('zip issue');
     } else {
+        $(".error_zip").hide();
         errorZip = false;
     }
     return errorZip
 }
 
 function validateCVV(){
-    var cvv = $("#cvv").val().length;
+    var cvv = $("#cvv").val();
     var errorCVV = true;
     errorCVV = intRegex.test(cvv);
-    if ((!errorCVV)||(cvv!= 3)){
+    if ((!errorCVV)||(cvv.length!= 3)){
         $(".error_cvv").show();
         errorCVV = true;
         console.log('cvv issue');
     } else {
+        $(".error_cvv").hide();
         errorCVV = false;
     }
     return errorCVV
