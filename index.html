@@ -15,16 +15,18 @@
       <h1>Full Stack Conf</h1>
     </header>
 
-    <form action="index.html" method="post">
+    <form id='contact' action="index.html" method="post">
               
       <fieldset>         
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
         <input type="text" id="name" name="user_name">
+        <span class="error_name">A name is required</span>
         
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user_email">
+          <span class="error_email">A valid email address is required</span>
         
         <label for="title">Job Role</label>
         <select id="title" name="user_title">
@@ -86,6 +88,8 @@
         <label><input type="checkbox" name="npm" class="wed_aft"> npm Workshop — Wednesday 1pm-4pm, $100</label>
                   	
       </fieldset>
+
+        <span class="error_activities">One Activity Must Be Selected!</span>
         Total Amount : <span id="Totalcost"> </span>
       <fieldset>
         <legend>Payment Info</legend>
@@ -104,17 +108,17 @@
             <label for="cc-num">Card Number:</label>
         	  <input id="cc-num" name="user_cc-num" type="text">
           </div>
-
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
             <input id="zip" name="user_zip" type="text"> 
           </div>
-
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
-            <input id="cvv" name="user_cvv" type="text"> 
+            <input id="cvv" name="user_cvv" type="text">
           </div>
-
+          <span class="error_cc">Sorry card number has wrong # of digits.</span>
+          <span class="error_zip">Sorry that's not a valid zip code.</span>
+          <span class="error_cvv">Sorry you've entered an invalid CVV.</span>
           <label for="exp-month">Expiration Date:</label>
           <select id="exp-month" name="user_exp-month">
             <option value="1">1 - January</option>
@@ -149,9 +153,10 @@
         </div>                  
 
       </fieldset>        
-        
+        <!-- Submit Button -->
+	<div id="contact_submit">
       <button type="submit">Register</button>
-      
+    </div>
     </form>
 
 	</div>

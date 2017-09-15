@@ -187,3 +187,25 @@ button:hover {
 .tues_aft {
   background: lightblue;
 }
+
+input.invalid, textarea.invalid{
+	border: 2px solid red;
+}
+
+input.valid, textarea.valid{
+	border: 2px solid green;
+}
+
+.error, .error_name, .error_email, .error_activities, .error_cc,
+ .error_cvv, .error_zip {
+	display: none;
+	color: red;
+	margin-bottom: 5px;
+	position: relative;
+}
+
+
+.error_show{
+	color: red;
+	margin-left: 10px;
+}

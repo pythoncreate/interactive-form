@@ -1,3 +1,5 @@
+var intRegex = /^[0-9]+$/;
+
 //Set focus on first text field and hide other text box
 $( document ).ready(function() {
     $(".container label:first").focus();
@@ -90,5 +92,127 @@ $('#payment').on('change', function(){
       $('#credit-card').hide();
       $('#bitcoin').show();
     }
+
+});
+
+// Name can't be blank
+function validateName(){
+    var name = $('#name').val();
+    var error_name = true
+    if (name === ''){
+        $(".error_name").show();
+        console.log('name cant be empty');
+    } else {
+        error_name = false;
+    }
+    return error_name
+
+}
+// Email must be valid
+function validateEmail(){
+    var email = $('#mail').val();
+    var error_mail = true;
+    var pattern = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+    error_email = pattern.test(email);
+    if (!error_email){
+        $(".error_email").show();
+        error_email = true;
+    } else {
+        error_email = false;
+    }
+    return error_email
+}
+// One Activity Must Be Selected
+function validateActivities(){
+    var totalActivities = $('.activities input[type="checkbox"]:checked').length;
+    var error_activity = true;
+    if (totalActivities < 1) {
+        $(".error_activities").show();
+    } else {
+        error_activity = false;
+    }
+    return error_activity
+}
+
+// Validate the Credit Card Number --Make sure is between 13 to 16 digit number
+function validateCC(){
+    var cc = $("#cc-num").val();
+    var errorCC = true;
+    errorCC = intRegex.test(cc);
+    if ((!errorCC) || ((cc.length < 13) || (cc.length > 16))){
+        $(".error_cc").show();
+        errorCC = true;
+    } else {
+        errorCC = false;
+    }
+    return errorCC
+}
+
+function validateZip(){
+    var zip = $("#zip").val().length;
+    var errorZip = true;
+    errorZip = intRegex.test(zip);
+    if ((!errorZip)||(zip!= 5)){
+        $(".error_zip").show();
+        errorZip = true;
+        console.log('zip issue');
+    } else {
+        errorZip = false;
+    }
+    return errorZip
+}
+
+function validateCVV(){
+    var cvv = $("#cvv").val().length;
+    var errorCVV = true;
+    errorCVV = intRegex.test(cvv);
+    if ((!errorCVV)||(cvv!= 3)){
+        $(".error_cvv").show();
+        errorCVV = true;
+        console.log('cvv issue');
+    } else {
+        errorCVV = false;
+    }
+    return errorCVV
+}
+
+//Check for Credit Card Issue -- Any problems with CC, Zip Code or CVV
+function validateCredit(){
+    var credit = $("#payment option[value='credit card']")
+    errorCC = validateCC();
+    errorZip = validateZip();
+    errorCVV = validateCVV();
+    isCreditIssue = false;
+    if (credit.prop('selected', true)){
+        if ((errorCC) || (errorZip) || (errorCVV)){
+        isCreditIssue = true;
+        console.log('credit issue');
+        }
+     }
+    return isCreditIssue
+}
+
+
+// On Form Submission Validate Form
+$("#contact_submit button").click(function(event){
+    error_name = validateName();
+    error_email = validateEmail();
+    error_activity = validateActivities();
+    isCreditIssue = validateCredit();
+    event.preventDefault();
+
+    var valid = true;
+
+    if ((error_name) || (error_email) || (error_activity) || (isCreditIssue)){
+        console.log("errors");
+        valid = false;
+    } else {
+        alert('GREAT! form completed');
+        valid = true;
+    }
+    if (valid) {
+    return;
+    }
+
 
 });
