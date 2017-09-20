@@ -209,3 +209,9 @@ input.valid, textarea.valid{
 	color: red;
 	margin-left: 10px;
 }
+
+#label {
+	color: #000;
+	display: block;
+	margin-bottom: .5em;
+}

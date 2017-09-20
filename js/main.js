@@ -43,36 +43,37 @@ var total = 0;
 
 //On change of activity select boxes, looks for duplicate times and creates total $ amount
 $activities.change(function() {
-  var activityClass = $(this).closest('input').attr("class");
+  var $this = $(this);
+  var activityClass = $this.closest('input').attr("class");
   var isChecked = this.checked;
-  $activities.not(this).prop('disabled', false);
 
   if (activityClass === 'tues_morn') {
     tuesMorn = isChecked ? tuesMorn + 1 : tuesMorn - 1;
     total = isChecked ? total + 100: total -100;
-    if (tuesMorn > 1) {
-      $(this).prop('disabled', true);
-      alert("You Signed Up For Too Many Morning Classes");
-    }
   } else if (activityClass === 'tues_aft') {
-    	tuesAft = isChecked ? tuesAft + 1 : tuesAft - 1;
-    	total = isChecked ? total + 100: total -100;
-    	if (tuesAft > 1) {
-    	$(this).prop('disabled', true);
-      	alert("You Signed Up For Too Many Afternoon Classes");
-      	}
+      tuesAft = isChecked ? tuesAft + 1 : tuesAft - 1;
+      total = isChecked ? total + 100: total -100;
   } else if (activityClass === 'wed_morn'){
         wedMorn = isChecked ? wedMorn + 1 : wedMorn - 1;
-    	total = isChecked ? total + 100: total -100;
+      total = isChecked ? total + 100: total -100;
   } else if (activityClass === 'wed_aft'){
         wedAft = isChecked ? wedAft + 1 : wedAft - 1;
-    	total = isChecked ? total + 100: total -100;
+      total = isChecked ? total + 100: total -100;
   } else if (activityClass === 'main'){
         main = isChecked ? main + 1 : main - 1;
-    	total = isChecked ? total + 200: total -200;
+      total = isChecked ? total + 200: total -200;
 }
+ if ($this.is('.tues_morn')) {
+      //alert("You Signed Up For Too Many Morning Classes");
+      $(".tues_morn").not(this).prop('disabled', tuesMorn > 0);
+    }
+ if ($this.is('.tues_aft')) {
+      //alert("You Signed Up For Too Many Afternoon Classes");
+         $(".tues_aft").not(this).prop('disabled', tuesAft > 0);
+        }
     document.getElementById('Totalcost').innerHTML = "$" + total;
 });
+
 
 //Changes Payment Sections Based on User Payment Choice
 $('#bitcoin').hide();
