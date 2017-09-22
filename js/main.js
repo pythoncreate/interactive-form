@@ -20,14 +20,14 @@ $("#title").change(function(){
 //On selection of the design, sets appropriate color based on the design selected
 $('#design').on('change', function(){
     if( $(this).val() == 'js puns' ){
-        $('.js').prop('disabled', true);
-        $('.js_puns').prop('disabled', false);
+        $('.js').hide();
+        $('.js_puns').show();
     } else if( $(this).val() == 'heart js' ){
-    	$('.js_puns').prop('disabled', true);
-    	$('.js').prop('disabled', false);
+    	$('.js_puns').hide();
+    	$('.js').show();
     } else {
-    	$('.js').prop('disabled', false);
-    	$('.js_puns').prop('disabled', false);
+    	$('.js').show();
+    	$('.js_puns').show();
     }
 });
 
@@ -185,18 +185,33 @@ function validateCVV(){
 
 //Check for Credit Card Issue -- Any problems with CC, Zip Code or CVV
 function validateCredit(){
-    var credit = $("#payment option[value='credit card']")
-    errorCC = validateCC();
-    errorZip = validateZip();
-    errorCVV = validateCVV();
+    var credit = $("#payment option[value='credit card']");
+    var paypal = $("#payment option[value='paypal']");
+    var bitcoin = $("#payment option[value='bitcoin']");
+    
+
     isCreditIssue = false;
-    if (credit.prop('selected', true)){
-        if ((errorCC) || (errorZip) || (errorCVV)){
-        isCreditIssue = true;
-        console.log('credit issue');
-        }
-     }
-    return isCreditIssue
+
+
+    if (credit.prop('selected')){
+      errorCC = validateCC();
+      errorZip = validateZip();
+      errorCVV = validateCVV();
+
+      if ((errorCC) || (errorZip) || (errorCVV)){
+      isCreditIssue = true;
+      console.log('credit issue');
+    } }
+    else if (bitcoin.prop('selected')){
+      console.log('bitcoin');
+      isCreditIssue = false;
+
+    } else if (paypal.prop('selected')){
+      console.log('paypal');
+      isCreditIssue = false;
+    }
+ 
+    return isCreditIssue;
 }
 
 
@@ -206,13 +221,19 @@ $("#contact_submit button").click(function(event){
     error_email = validateEmail();
     error_activity = validateActivities();
     isCreditIssue = validateCredit();
-    event.preventDefault();
-
+    var selectMethod = $("#payment option[value='select_method']");
+   
     var valid = true;
 
-    if ((error_name) || (error_email) || (error_activity) || (isCreditIssue)){
+
+    if (selectMethod.prop('selected')){
+       alert("Please select payment method");
+       console.log("no payment selected");
+       event.preventDefault();
+    } else if ((error_name) || (error_email) || (error_activity) || (isCreditIssue)){
         console.log("errors");
         valid = false;
+        event.preventDefault();
     } else {
         alert('GREAT! form completed');
         valid = true;
