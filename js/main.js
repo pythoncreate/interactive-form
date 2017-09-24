@@ -18,6 +18,8 @@ $("#title").change(function(){
    });
 
 //On selection of the design, sets appropriate color based on the design selected
+$('.js_puns').hide();
+$('.js').hide();
 $('#design').on('change', function(){
     if( $(this).val() == 'js puns' ){
         $('.js').hide();
@@ -78,22 +80,9 @@ $activities.change(function() {
 //Changes Payment Sections Based on User Payment Choice
 $('#bitcoin').hide();
 $('#paypal').hide();
-$("#payment option[value='credit card']").prop('selected', true);
+$("#payment option[value='credit-card']").prop('selected', true);
 $('#payment').on('change', function(){
-    if( $(this).val() == 'credit card' ){
-      $('#bitcoin').hide();
-      $('#paypal').hide();
-      $('#credit-card').show();
-    } else if ( $(this).val()=='paypal' ){
-      $('#paypal').show();
-      $('#credit-card').hide();
-      $('#bitcoin').hide();
-    } else if ( $(this).val()=='bitcoin'){
-      $('#paypal').hide();
-      $('#credit-card').hide();
-      $('#bitcoin').show();
-    }
-
+    $("#bitcoin, #paypal, #credit-card").hide().filter("#" + this.value).show()
 });
 
 // Name can't be blank
@@ -185,7 +174,7 @@ function validateCVV(){
 
 //Check for Credit Card Issue -- Any problems with CC, Zip Code or CVV
 function validateCredit(){
-    var credit = $("#payment option[value='credit card']");
+    var credit = $("#payment option[value='credit-card']");
     var paypal = $("#payment option[value='paypal']");
     var bitcoin = $("#payment option[value='bitcoin']");
     
@@ -227,6 +216,7 @@ $("#contact_submit button").click(function(event){
 
 
     if (selectMethod.prop('selected')){
+       $('#credit-card').hide();
        alert("Please select payment method");
        console.log("no payment selected");
        event.preventDefault();
